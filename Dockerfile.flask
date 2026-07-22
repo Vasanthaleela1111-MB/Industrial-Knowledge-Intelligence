@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements-flask.txt .
+RUN pip install --no-cache-dir -r requirements-flask.txt
+
+COPY . .
+
+EXPOSE 5000
+CMD ["python", "frontend/flask_app.py"]

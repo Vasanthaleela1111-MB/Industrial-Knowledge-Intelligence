@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IndustrialMind AI</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h1 class="sidebar-title">🏭 IndustrialMind AI</h1>
+
+    {% if health %}
+      {% if health.get("qdrant_connected") %}
+        <p class="caption">🟢 Qdrant connected</p>
+      {% else %}
+        <p class="caption">🔴 Qdrant not connected — semantic search disabled, keyword search only</p>
+      {% endif %}
+    {% endif %}
+
+    <nav class="nav">
+      <a href="{{ url_for('documentation') }}" class="{{ 'active' if active=='documentation' else '' }}">📘 Project Documentation</a>
+      <a href="{{ url_for('intelligence') }}" class="{{ 'active' if active=='intelligence' else '' }}">📂 Industrial Intelligence</a>
+      <a href="{{ url_for('creator') }}" class="{{ 'active' if active=='creator' else '' }}">👨‍💻 Creator</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <header class="page-header">
+      <h1>🏭 IndustrialMind AI</h1>
+      <p class="subtitle">AI-Powered Industrial Knowledge Intelligence Platform</p>
+      <hr>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+</body>
+</html>

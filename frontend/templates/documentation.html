@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="alert alert-info">
+IndustrialMind AI transforms scattered industrial documents into a unified
+AI-powered knowledge platform. It enables engineers, maintenance teams,
+quality inspectors and plant operators to retrieve information,
+perform Root Cause Analysis (RCA), assess compliance and discover
+hidden operational knowledge from a single intelligent system.
+</div>
+
+<hr>
+
+<h2>Platform Overview</h2>
+<div class="metric-row">
+  <div class="metric"><div class="metric-label">📄 Document Types</div><div class="metric-value">12+</div></div>
+  <div class="metric"><div class="metric-label">🤖 AI Modules</div><div class="metric-value">7</div></div>
+  <div class="metric"><div class="metric-label">🧠 Search</div><div class="metric-value">Hybrid RAG</div></div>
+  <div class="metric"><div class="metric-label">🔗 Knowledge Graph</div><div class="metric-value">Neo4j</div></div>
+</div>
+
+<h2>About The Project</h2>
+<div class="container-box">
+<p>Industrial organizations manage thousands of engineering drawings,
+maintenance work orders, inspection reports, SOPs, OEM manuals,
+quality documents and regulatory records.</p>
+<p>Most of these documents are distributed across multiple disconnected
+systems, making information retrieval slow and decision making difficult.</p>
+<p>IndustrialMind AI unifies these documents into a centralized
+knowledge platform using Document Intelligence, Knowledge Graphs
+and Retrieval-Augmented Generation (RAG).</p>
+<p>The platform enables engineers to ask questions in natural language,
+retrieve accurate evidence and generate maintenance,
+quality and compliance insights.</p>
+</div>
+
+<h2>Industry Challenges</h2>
+<div class="two-col">
+  <div class="container-box">
+    <h3>Current Problems</h3>
+    <ul>
+      <li>Disconnected document systems</li>
+      <li>Difficult document search</li>
+      <li>Repeated equipment failures</li>
+      <li>Knowledge loss after employee retirement</li>
+      <li>Compliance complexity</li>
+      <li>Slow Root Cause Analysis</li>
+    </ul>
+  </div>
+  <div class="container-box">
+    <h3>Our Solution</h3>
+    <ul>
+      <li>Universal Document Intelligence</li>
+      <li>Hybrid RAG Search</li>
+      <li>AI Expert Copilot</li>
+      <li>Knowledge Graph</li>
+      <li>Maintenance Intelligence</li>
+      <li>Compliance Intelligence</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Core Modules</h2>
+<div class="three-col">
+  <div class="alert alert-success">
+    <h3>📂 Document Intelligence</h3>
+    <ul>
+      <li>Universal Document Upload</li>
+      <li>OCR</li>
+      <li>Parsing</li>
+      <li>Entity Extraction</li>
+      <li>Metadata Generation</li>
+    </ul>
+  </div>
+  <div class="alert alert-info">
+    <h3>🤖 AI Intelligence</h3>
+    <ul>
+      <li>Expert Copilot</li>
+      <li>Hybrid RAG</li>
+      <li>Knowledge Graph</li>
+      <li>Semantic Search</li>
+      <li>AI Reasoning</li>
+    </ul>
+  </div>
+  <div class="alert alert-warning">
+    <h3>🏭 Industrial Intelligence</h3>
+    <ul>
+      <li>Maintenance</li>
+      <li>RCA</li>
+      <li>Compliance</li>
+      <li>Lessons Learned</li>
+      <li>Decision Support</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Key Features</h2>
+<div class="three-col">
+  <div class="container-box">
+    <h3>📤 Smart Document Upload</h3>
+    <p>Upload industrial documents</p>
+    <ul>
+      <li>PDF</li><li>DOCX</li><li>Excel</li><li>Images</li><li>Email</li><li>HTML</li>
+    </ul>
+    <p>using one unified pipeline.</p>
+  </div>
+  <div class="container-box">
+    <h3>🤖 AI Copilot</h3>
+    <p>Ask operational, maintenance, engineering, quality, and safety questions naturally.</p>
+  </div>
+  <div class="container-box">
+    <h3>🔗 Connected Knowledge</h3>
+    <p>Automatically connect documents, equipment, maintenance, inspection, compliance, and incidents.</p>
+  </div>
+</div>
+
+<h2>🔄 AI Workflow</h2>
+{% set workflow = [
+  "Upload Industrial Documents",
+  "Parse Documents using Docling",
+  "Extract Industrial Entities",
+  "Generate Embeddings",
+  "Store in Vector Database",
+  "Build Knowledge Graph",
+  "Hybrid RAG Retrieval",
+  "Generate AI Insights"
+] %}
+{% for item in workflow %}
+<div class="alert alert-success">Step {{ loop.index }}: {{ item }}</div>
+{% endfor %}
+
+<h2>Technology Stack</h2>
+<div class="four-col">
+  <div>
+    <h3>📑 Document AI</h3>
+    <ul><li>Docling</li><li>OCR</li><li>PDF Parsing</li><li>Metadata</li><li>Images</li></ul>
+  </div>
+  <div>
+    <h3>🧠 AI</h3>
+    <ul><li>LangChain</li><li>Llama 3.3</li><li>Hybrid RAG</li><li>Sentence Transformers</li></ul>
+  </div>
+  <div>
+    <h3>💾 Storage</h3>
+    <ul><li>SQLite</li><li>Qdrant</li><li>Neo4j</li><li>Local Storage</li></ul>
+  </div>
+  <div>
+    <h3>🖥 Frontend</h3>
+    <ul><li>Flask</li><li>Jinja2</li><li>Python</li><li>Requests</li></ul>
+  </div>
+</div>
+
+<h2>🚀 Platform Capabilities</h2>
+<div class="two-col">
+  <div>
+    <h3>AI Capabilities</h3>
+    <p>✅ Universal Document Ingestion<br>
+    ✅ OCR &amp; Parsing<br>
+    ✅ Hybrid RAG<br>
+    ✅ Knowledge Graph<br>
+    ✅ Expert Copilot<br>
+    ✅ Semantic Search</p>
+  </div>
+  <div>
+    <h3>Industrial Intelligence</h3>
+    <p>✅ Maintenance Intelligence<br>
+    ✅ Root Cause Analysis<br>
+    ✅ Compliance Intelligence<br>
+    ✅ Audit Support<br>
+    ✅ Lessons Learned<br>
+    ✅ Decision Support</p>
+  </div>
+</div>
+
+<h2>🌍 Business Impact</h2>
+<div class="metric-row">
+  <div class="metric"><div class="metric-label">Search Time</div><div class="metric-value">↓ 70%</div></div>
+  <div class="metric"><div class="metric-label">Downtime</div><div class="metric-value">↓ 25%</div></div>
+  <div class="metric"><div class="metric-label">Compliance</div><div class="metric-value">↑ Improved</div></div>
+  <div class="metric"><div class="metric-label">Knowledge</div><div class="metric-value">Centralized</div></div>
+</div>
+
+<h2>Target Users</h2>
+<div class="three-col">
+  <div class="alert alert-info">
+    <h3>Plant Operations</h3>
+    <ul><li>Plant Engineers</li><li>Shift Engineers</li><li>Supervisors</li></ul>
+  </div>
+  <div class="alert alert-info">
+    <h3>Maintenance</h3>
+    <ul><li>Maintenance Engineers</li><li>Reliability Engineers</li><li>Technicians</li></ul>
+  </div>
+  <div class="alert alert-info">
+    <h3>Quality</h3>
+    <ul><li>QA Team</li><li>Auditors</li><li>Safety Officers</li></ul>
+  </div>
+</div>
+
+<h2>Future Scope</h2>
+<details class="expander">
+  <summary>View Future Enhancements</summary>
+  <ul>
+    <li>Predictive Maintenance using IoT</li>
+    <li>SAP / Maximo Integration</li>
+    <li>Live Sensor Monitoring</li>
+    <li>Voice Assistant</li>
+    <li>Mobile Application</li>
+    <li>Multi-language Support</li>
+    <li>Automated Compliance Reporting</li>
+    <li>Digital Twin Integration</li>
+  </ul>
+</details>
+
+<div class="alert alert-success">
+IndustrialMind AI provides a unified AI-powered platform for document intelligence, maintenance, compliance and operational decision support.
+</div>
+
+{% endblock %}

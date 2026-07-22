@@ -1,0 +1,1614 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📂 Industrial Intelligence</h2>
+<hr>
+
+<div class="metric-row">
+
+    <div class="metric">
+    <div class="metric-label">📄 Documents</div>
+    <div class="metric-value">{{ metrics.documents }}</div>
+    </div>
+
+    <div class="metric">
+    <div class="metric-label">🧠 Knowledge Chunks</div>
+    <div class="metric-value">{{ metrics.chunks }}</div>
+    </div>
+
+    <div class="metric">
+    <div class="metric-label">🔗 Entity Types</div>
+    <div class="metric-value">{{ metrics.entity_counts|length }}</div>
+    </div>
+
+    <!-- <div class="metric">
+    <div class="metric-label">⏱ Time Saved</div>
+    <div class="metric-value">
+    {{ metrics.estimated_time_saved_minutes }} min
+    </div>
+    </div> -->
+
+</div>
+
+<!-- <div class="alert alert-success">Finished</div> -->
+
+<h2>Dashboard</h2>
+
+<div class="tabs">
+  <div class="tab-buttons">
+    <button class="tab-btn" data-tab="workspace">Workspace</button>
+    <button class="tab-btn" data-tab="assistant">AI Assistant</button>
+    <button class="tab-btn" data-tab="asset">Asset Intelligence</button>
+    <button class="tab-btn" data-tab="compliance">Compliance & Insights</button>
+  </div>
+
+  <!-- ============ WORKSPACE TAB ============ -->
+    <div class="tab-panel active" id="tab-workspace">
+
+    <div class="container-box">
+        <h2>🏭 Industrial Workspace</h2>
+        <p>
+            Upload industrial documents, manage the knowledge base,
+            and monitor AI indexing status from one central workspace.
+        </p>
+    </div>
+
+    <!-- ================= KPI ================= -->
+
+    <div class="four-col">
+
+        <div class="metric">
+            <div class="metric-label">📄 Documents</div>
+            <div class="metric-value">
+                {{ metrics.get("documents",0) }}
+            </div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">🧠 Knowledge Chunks</div>
+            <div class="metric-value">
+                {{ metrics.get("chunks",0) }}
+            </div>
+        </div>
+
+        <div class="metric">
+            <div class="metric-label">🔗 Entity Types</div>
+            <div class="metric-value">
+                {{ metrics.get("entity_counts",{})|length }}
+            </div>
+        </div>
+
+        <!-- <div class="metric">
+            <div class="metric-label">⏱ Time Saved</div>
+            <div class="metric-value">
+                {{ metrics.get("estimated_time_saved_minutes",0) }} min
+            </div>
+        </div> -->
+
+    </div>
+
+    <!-- ================= Upload ================= -->
+
+    <div class="two-col">
+
+        <div class="container-box">
+
+            <h3>📤 Upload Industrial Documents</h3>
+
+            <p>
+                Supported formats
+            </p>
+
+            <div class="metric-row">
+
+                <div class="metric">PDF</div>
+
+                <div class="metric">DOCX</div>
+
+                <div class="metric">Excel</div>
+
+                <div class="metric">Images</div>
+
+                <div class="metric">Email</div>
+
+            </div>
+
+            <form
+                method="post"
+                action="{{ url_for('upload_documents') }}"
+                enctype="multipart/form-data">
+
+                <input
+                    type="file"
+                    name="files"
+                    multiple
+                    accept=".pdf,.docx,.pptx,.xlsx,.csv,.png,.jpg,.jpeg,.bmp,.tiff,.eml,.html,.md,.txt">
+
+                <br><br>
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                     Upload Documents
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- ================= Actions ================= -->
+
+        <div class="container-box">
+
+            <h3>Workspace Actions</h3>
+
+            <hr>
+
+            <h3> Knowledge Status</h3>
+
+            <table class="data-table">
+
+                <tr>
+
+                    <th>Metric</th>
+
+                    <th>Value</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>Documents</td>
+
+                    <td>{{ metrics.get("documents",0) }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Knowledge Chunks</td>
+
+                    <td>{{ metrics.get("chunks",0) }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Entity Types</td>
+
+                    <td>{{ metrics.get("entity_counts",{})|length }}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Analytics ================= -->
+
+    <div class="container-box">
+
+        <h3> Entity Analytics</h3>
+
+        {% if metrics.get("entity_counts") %}
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Entity Type</th>
+
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for entity,count in metrics.entity_counts.items() %}
+
+                <tr>
+
+                    <td>{{ entity }}</td>
+
+                    <td>{{ count }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            Upload industrial documents to begin
+            knowledge extraction.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Repository ================= -->
+
+    <div class="container-box">
+
+        <h3>📚 Document Repository</h3>
+
+        {% if documents %}
+        <form method="post"
+            action="{{ url_for('delete_documents') }}">
+        <table class="data-table">
+
+            <thead>
+
+            <tr>
+                <th>Select</th>
+                <th>📄 File</th>
+
+                <th>Type</th>
+
+                <th>Chunks</th>
+
+                <th>Entities</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for doc in documents %}
+
+            <tr>
+
+                <td>
+
+                <input
+                type="checkbox"
+                name="selected_documents"
+                value="{{ doc.id }}">
+
+                </td>
+
+                <td>{{ doc.file_name }}</td>
+
+                <td>{{ doc.document_type }}</td>
+
+                <td>{{ doc.chunks }}</td>
+
+                <!-- <td>{{ doc.entities }}</td> -->
+                 <td>
+
+                    {% if doc.entities %}
+
+                    {{ doc.entities.keys()|list|join(", ") }}
+
+                    {% else %}
+
+                    -
+
+                    {% endif %}
+
+                    </td>
+
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        <br>
+
+        <button
+            class="btn btn-danger"
+            type="submit">
+
+             Delete Selected
+
+            </button>
+    </form>
+
+        {% else %}
+
+        <div class="alert alert-warning">
+
+            No industrial documents uploaded yet.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+      <div class="tab-panel" id="tab-assistant">
+
+    <div class="container-box">
+
+        <h2>🤖 Industrial AI Assistant</h2>
+
+        <p>
+            Ask engineering, maintenance, inspection,
+            compliance, safety and operational questions
+            using your uploaded industrial knowledge base.
+        </p>
+
+    </div>
+
+    <form method="post" action="{{ url_for('ask') }}">
+
+        <div class="two-col">
+
+            <!-- ================= LEFT ================= -->
+
+            <div class="container-box">
+
+                <h3>📄 Knowledge Sources</h3>
+
+                <label>Select Documents</label>
+
+                <br>
+
+                {% for doc in documents %}
+
+                <div class="document-item">
+
+                    <label class="document-checkbox">
+
+                        <input
+                            type="checkbox"
+                            name="selected_documents"
+                            value="{{ doc.id }}"
+                            {% if (selected_documents and doc.file_name in selected_documents)
+                            or not selected_documents %}
+                            checked
+                            {% endif %}>
+
+                         <span class="document-name">
+
+                            {{ doc.file_name }}
+                        </span>
+
+                    </label>
+
+                </div>
+
+                {% endfor %}
+
+                </div>
+
+                <br><br>
+
+                <div class="evidence-slider">
+
+                    <div class="slider-title">
+
+                        <label for="top_k">
+                            Retrieved Evidence
+                        </label>
+
+                        <span id="topk_value">
+                            {{ top_k or 5 }}
+                        </span>
+
+                    </div>
+
+                        <input
+                            type="range"
+                            min="1"
+                            max="6"
+                            id="top_k"
+                            name="top_k"
+                            value="{{ top_k or 5 }}"
+                            oninput="document.getElementById('topk_value').innerHTML=this.value">
+
+                    </div>
+
+            <!-- ================= RIGHT ================= -->
+
+            <div class="container-box">
+
+                <h3>💬 Ask IndustrialMind AI</h3>
+
+                <textarea
+                    rows="8"
+                    id="question"
+                    name="question"
+                    placeholder="Examples:
+
+• Why did Pump P-101 fail?
+
+• Show inspection history.
+
+• Summarize maintenance activities.
+
+• What compliance gaps exist?
+
+• Explain recurring failures.
+
+">{{ question or "" }}</textarea>
+
+                <br><br>
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                         Analyze
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <br>
+
+    {% if ask_error %}
+
+        <div class="alert alert-error">
+
+            {{ ask_error }}
+
+        </div>
+
+    {% endif %}
+
+    {% if answer %}
+
+    <div class="alert alert-success">
+
+        ✅ Analysis Completed Successfully
+
+    </div>
+
+    <!-- ================= KPI ================= -->
+
+    <div class="four-col">
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Confidence
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ answer.get("confidence","N/A") }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Documents
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ answer.get("citations",[])|length }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Entities
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ answer.get("entities",[])|length }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                AI Engine
+
+            </div>
+
+            <div class="metric-value">
+
+                Hybrid RAG
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Answer ================= -->
+
+    <div class="container-box">
+
+        <h3>🧠 AI Answer</h3>
+
+        <div class="alert alert-info">
+
+            {{ answer.answer }}
+
+        </div>
+
+    </div>
+
+    <!-- ================= Evidence ================= -->
+
+    <div class="container-box">
+
+        <h3>📚 Supporting Evidence</h3>
+
+        {% set citations=answer.get("citations",[]) %}
+
+        {% if citations %}
+
+            {% for citation in citations %}
+
+            <div class="container-box">
+
+                <h4>
+
+                    📄 {{ citation.file_name }}
+
+                </h4>
+
+                <div class="metric-row">
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+
+                            Similarity
+
+                        </div>
+
+                        <div class="metric-value">
+
+                            {{ "%.2f"|format(citation.get("score",0)) }}
+
+                        </div>
+
+                    </div>
+
+                    {% if citation.page %}
+
+                    <div class="metric">
+
+                        <div class="metric-label">
+
+                            Page
+
+                        </div>
+
+                        <div class="metric-value">
+
+                            {{ citation.page }}
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <p>
+
+                    {{ citation.excerpt }}
+
+                </p>
+
+                {% if citation.matched_entities %}
+
+                <strong>
+
+                    Matched Entities
+
+                </strong>
+
+                <ul>
+
+                    {% for entity in citation.matched_entities %}
+
+                    <li>
+
+                        {{ entity }}
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="alert alert-warning">
+
+                No supporting evidence found.
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Entities ================= -->
+
+    <div class="container-box">
+
+        <h3>🏷 Retrieved Entities</h3>
+
+        {% set entities=answer.get("entities",[]) %}
+
+        {% if entities %}
+
+        <div class="three-col">
+
+            {% if entities is mapping %}
+
+                {% for category, values in entities.items() %}
+
+                    {% for entity in values[:8] %}
+
+                    <div class="metric">
+
+                        <div class="metric-label">{{ category.replace('_', ' ')|title }}</div>
+
+                        <div class="metric-value">{{ entity }}</div>
+
+                    </div>
+
+                    {% endfor %}
+
+                {% endfor %}
+
+            {% else %}
+
+                {% for entity in entities %}
+
+                <div class="metric">
+
+                    <div class="metric-value">{{ entity }}</div>
+
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No entities detected.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Knowledge Graph ================= -->
+
+    <div class="container-box">
+
+        <h3>🔗 Knowledge Graph</h3>
+
+        {% if graph %}
+
+        <div class="metric-row">
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Nodes
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ graph.get("stats",{}).get("nodes",0) }}
+
+                </div>
+
+            </div>
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Relationships
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ graph.get("stats",{}).get("edges",0) }}
+
+                </div>
+
+            </div>
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Documents
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ graph.get("stats",{}).get("documents",0) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            id="graph-canvas"
+            style="height:600px;border:1px solid #ddd;border-radius:8px;"
+            data-nodes='{{ graph.get("nodes",[])|tojson }}'
+            data-edges='{{ graph.get("edges",[])|tojson }}'>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-warning">
+
+            Knowledge Graph is not available.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+      <div class="tab-panel" id="tab-asset">
+
+    <div class="container-box">
+
+        <h2>🏭 Asset Intelligence</h2>
+
+        <p>
+            Analyze industrial equipment using historical
+            maintenance records, inspection reports,
+            failure history and AI-generated recommendations.
+        </p>
+
+    </div>
+
+    <!-- ================= Search ================= -->
+
+    <div class="container-box">
+
+        <form method="post"
+              action="{{ url_for('maintenance') }}">
+
+            <label>
+
+                Equipment Tag
+
+            </label>
+
+            <div class="metric-row">
+
+                <input
+                    type="text"
+                    name="equipment_tag"
+                    id="equipment_tag"
+                    placeholder="Example : P-101"
+                    value="{{ equipment_tag or '' }}">
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                    🔍 Analyze Asset
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% if asset_error %}
+
+    <div class="alert alert-error">
+
+        {{ asset_error }}
+
+    </div>
+
+    {% endif %}
+
+    {% if maintenance %}
+
+    <!-- ================= KPI ================= -->
+
+    <div class="four-col">
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Equipment
+
+            </div>
+
+            <div class="metric-value">
+
+                <!-- {{ equipment_tag|upper }} -->
+                  {{ maintenance.get("equipment_tag", equipment_tag)|upper }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Risk Level
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ maintenance.get("risk_level","Unknown") }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Failure Modes
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ maintenance.get("failure_modes",[])|length }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Recommendations
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ maintenance.get("recommendations",[])|length }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Overview ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            📈 Asset Overview
+
+        </h3>
+
+        <table class="data-table">
+
+            <tr>
+
+                <th>Equipment</th>
+
+                <!-- <td>{{ equipment_tag|upper }}</td> -->
+                <td>{{ maintenance.get("equipment_tag", equipment_tag)|upper }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Asset Type</th>
+
+                <td>{{ maintenance.get("asset_type", "Unknown") }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Risk</th>
+
+                <td>{{ maintenance.get("risk_level","Unknown") }}</td>
+
+            </tr>
+
+            <tr>
+                <th>Failure Modes</th>
+                <td>
+                    {% if maintenance.get("failure_modes") %}
+                        {% for mode in maintenance.get("failure_modes") %}
+                            {% if mode is mapping %}
+                                {{ mode.get("name") }}{% if not loop.last %}, {% endif %}
+                            {% else %}
+                                {{ mode }}{% if not loop.last %}, {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        None
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+
+                <th>Recommendations</th>
+
+                <td>{{ maintenance.get("recommendations",[])|length }}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- ================= Failure Modes ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            ⚠ Failure Modes
+
+        </h3>
+
+        {% if maintenance.failure_modes %}
+
+            {% for mode in maintenance.failure_modes %}
+
+            <div class="alert alert-warning">
+
+                {% if mode is mapping %}
+
+                    <strong>
+
+                        {{ mode.get("name","Failure Mode") }}
+
+                    </strong>
+
+                    {% if mode.description %}
+
+                    <p>
+
+                        {{ mode.description }}
+
+                    </p>
+
+                    {% endif %}
+
+                {% else %}
+
+                    {{ mode }}
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No failure modes detected.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Recommendations ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            💡 AI Recommendations
+
+        </h3>
+
+        {% if maintenance.recommendations %}
+
+            {% for recommendation in maintenance.recommendations %}
+
+            <div class="alert alert-success">
+
+                {{ recommendation }}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No recommendations available.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Lessons Learned ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            📘 Lessons Learned
+
+        </h3>
+
+        {% if lessons and lessons.patterns %}
+
+            {% for lesson in lessons.patterns %}
+
+            <details class="expander">
+
+                <summary>
+
+                    {{ lesson.pattern }}
+
+                    ({{ lesson.occurrences }})
+
+                </summary>
+
+                <br>
+
+                <p>
+
+                    {{ lesson.warning }}
+
+                </p>
+
+                {% if lesson.evidence %}
+
+                <strong>
+
+                    Related Documents
+
+                </strong>
+
+                <ul>
+
+                    {% for item in lesson.evidence %}
+
+                    <li>
+
+                        {% if item is mapping %}
+
+                            {{ item.get("file_name","Document") }}
+
+                        {% else %}
+
+                            {{ item }}
+
+                        {% endif %}
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                {% endif %}
+
+            </details>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No historical lessons available.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+      <hr>
+
+        <div class="tab-panel" id="tab-compliance">
+
+    <div class="container-box">
+
+        <h2>📋 Compliance & Audit Intelligence</h2>
+
+        <p>
+            Assess uploaded industrial documents against
+            regulatory standards and identify compliance
+            gaps, supporting evidence and audit readiness.
+        </p>
+
+    </div>
+
+    <!-- ================= Assessment ================= -->
+
+    <div class="container-box">
+
+        <form
+            method="post"
+            action="{{ url_for('compliance') }}">
+
+            <label>
+
+                Compliance Standard
+
+            </label>
+
+            <input
+                type="text"
+                name="standard"
+                id="standard">
+
+            <br><br>
+
+            <button
+                class="btn btn-primary"
+                type="submit">
+
+                📋 Run Compliance Assessment
+
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if compliance_error %}
+
+    <div class="alert alert-error">
+
+        {{ compliance_error }}
+
+    </div>
+
+    {% endif %}
+
+    {% if compliance %}
+
+    <!-- ================= KPI ================= -->
+
+    <div class="four-col">
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Compliance Score
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ compliance.get("compliance_score","N/A") }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Covered Requirements
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ compliance.get("requirements_covered",[])|length }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Compliance Gaps
+
+            </div>
+
+            <div class="metric-value">
+
+                {{ compliance.get("compliance_gaps",[])|length }}
+
+            </div>
+
+        </div>
+
+        <div class="metric">
+
+            <div class="metric-label">
+
+                Audit Status
+
+            </div>
+
+            <div class="metric-value">
+
+                <!-- {% if compliance.gaps|length == 0 %}
+                    Ready
+                {% else %}
+                    Review
+                {% endif %} -->
+                {{ compliance.audit_readiness }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Summary ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+             Compliance Summary
+
+        </h3>
+
+        <table class="data-table">
+
+            <tr>
+
+                <th>Standard</th>
+
+                <td>{{ standard }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Compliance Score</th>
+
+                <td>{{ compliance.compliance_score }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Covered Requirements</th>
+
+                <td>{{ compliance.requirements_covered|length }}</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Compliance Gaps</th>
+
+                <td>{{ compliance.compliance_gaps|length }}</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- ================= Coverage ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            ✅ Requirement Coverage
+
+        </h3>
+
+        {% if compliance.requirements_covered %}
+
+            {% for item in compliance.requirements_covered %}
+
+            <div class="alert alert-success">
+
+                {% if item is mapping %}
+
+                    <strong>
+
+                        {{ item.get("title","Requirement") }}
+
+                    </strong>
+
+                    {% if item.description %}
+
+                    <p>
+
+                        {{ item.description }}
+
+                    </p>
+
+                    {% endif %}
+
+                    {% if item.status %}
+
+                    <strong>
+
+                        Status :
+
+                    </strong>
+
+                    {{ item.status }}
+
+                    {% endif %}
+
+                {% else %}
+
+                    {{ item }}
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No compliance coverage available.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Gaps ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            ⚠ Compliance Gaps
+
+        </h3>
+
+        {% if compliance.compliance_gaps %}
+
+            {% for gap in compliance.compliance_gaps %}
+
+            <div class="container-box">
+
+                {% if gap is mapping %}
+
+                    <h4>
+
+                        {{ gap.get("title","Gap") }}
+
+                    </h4>
+
+                    {% if gap.description %}
+
+                    <p>
+
+                        {{ gap.description }}
+
+                    </p>
+
+                    {% endif %}
+
+                    {% if gap.recommendation %}
+
+                    <div class="alert alert-warning">
+
+                        {{ gap.recommendation }}
+
+                    </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="alert alert-warning">
+
+                        {{ gap }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+        <div class="alert alert-success">
+
+            No compliance gaps detected.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- ================= Audit ================= -->
+
+    <div class="container-box">
+
+        <h3>
+
+            🏆 Audit Readiness
+
+        </h3>
+
+        {% if compliance.compliance_gaps|length == 0 %}
+
+        <div class="alert alert-success">
+
+            The uploaded industrial documents satisfy the
+            selected compliance requirements.
+
+            <br><br>
+
+            ✔ Ready for Audit
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-warning">
+
+            Compliance assessment identified missing
+            documentation or incomplete evidence.
+
+            <br><br>
+
+            Review the listed gaps before an external audit.
+
+        </div>
+
+        {% endif %}
+
+        <div class="metric-row">
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Evidence Coverage
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ compliance.compliance_score }}
+
+                </div>
+
+            </div>
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Covered
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ compliance.requirements_covered|length }}
+
+                </div>
+
+            </div>
+
+            <div class="metric">
+
+                <div class="metric-label">
+
+                    Missing
+
+                </div>
+
+                <div class="metric-value">
+
+                    {{ compliance.compliance_gaps|length }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</div>   
+
+<script>window.__activeTab = "{{ active_tab or 'workspace' }}";</script>
+<!-- <script src="{{ url_for('static', filename='tabs.js') }}"></script> -->
+ <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="{{ url_for('static', filename='tabs.js') }}"></script>
+<script>
+
+</script>
+{% endblock %}

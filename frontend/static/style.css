@@ -1,0 +1,1806 @@
+/* ==========================================================
+   IndustrialMind AI
+   Modern Dashboard UI
+   Part 1 - Global Layout, Sidebar, Header, Forms, Buttons
+========================================================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --secondary:#64748b;
+
+    --success:#16a34a;
+    --warning:#d97706;
+    --danger:#dc2626;
+    --info:#0284c7;
+
+    --bg:#f5f7fb;
+    --card:#ffffff;
+
+    --border:#e5e7eb;
+
+    --text:#1e293b;
+    --muted:#64748b;
+
+    --radius:14px;
+
+    --shadow-sm:0 2px 6px rgba(0,0,0,.05);
+    --shadow-md:0 6px 18px rgba(0,0,0,.08);
+    --shadow-lg:0 12px 30px rgba(0,0,0,.12);
+
+}
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    margin:0;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:
+        "Inter",
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    font-size:15px;
+    line-height:1.6;
+
+}
+
+/* ==========================================================
+   LINKS
+========================================================== */
+
+a{
+
+    color:inherit;
+    text-decoration:none;
+
+}
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+.layout{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.sidebar{
+
+    width:270px;
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:28px 22px;
+
+    position:sticky;
+
+    top:0;
+
+    height:100vh;
+
+    overflow-y:auto;
+
+    box-shadow:4px 0 18px rgba(0,0,0,.08);
+
+}
+
+.sidebar-title{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    line-height:1.3;
+
+}
+
+.caption{
+
+    margin-top:18px;
+
+    padding:10px 12px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#cbd5e1;
+
+    font-size:13px;
+
+}
+
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+
+.nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-top:28px;
+
+}
+
+.nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:14px 16px;
+
+    border-radius:10px;
+
+    color:#dbeafe;
+
+    transition:.25s;
+
+    font-weight:500;
+
+}
+
+.nav a:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.nav a.active{
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.content{
+
+    flex:1;
+
+    padding:34px;
+
+    overflow-x:hidden;
+
+}
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.page-header{
+
+    margin-bottom:28px;
+
+}
+
+.page-header h1{
+
+    margin:0;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.subtitle{
+
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+hr{
+
+    margin-top:22px;
+
+    margin-bottom:24px;
+
+    border:none;
+
+    border-top:1px solid var(--border);
+
+}
+
+/* ==========================================================
+   TYPOGRAPHY
+========================================================== */
+
+h2{
+
+    margin-top:0;
+
+    margin-bottom:18px;
+
+    font-size:26px;
+
+}
+
+h3{
+
+    margin-top:0;
+
+    margin-bottom:16px;
+
+    font-size:20px;
+
+}
+
+h4{
+
+    margin-top:0;
+
+    margin-bottom:12px;
+
+}
+
+p{
+
+    color:#475569;
+
+}
+
+/* ==========================================================
+   CONTAINERS
+========================================================== */
+
+.container-box{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:26px;
+
+    margin-bottom:24px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.25s;
+
+}
+
+.container-box:hover{
+
+    box-shadow:var(--shadow-md);
+
+}
+
+/* ==========================================================
+   GRID HELPERS
+========================================================== */
+
+.two-col{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:24px;
+
+}
+
+.three-col{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:24px;
+
+}
+
+.four-col{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+}
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:13px 22px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+}
+
+.btn-secondary{
+
+    background:#eef2ff;
+
+    color:#1e40af;
+
+}
+
+.btn-secondary:hover{
+
+    background:#dbeafe;
+
+}
+
+/* ==========================================================
+   FORMS
+========================================================== */
+
+form{
+
+    margin-top:12px;
+
+}
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:13px 14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    background:white;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:140px;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+input[type=file]{
+
+    padding:14px;
+
+    background:#f8fafc;
+
+    border:2px dashed #cbd5e1;
+
+}
+
+input[type=file]:hover{
+
+    border-color:var(--primary);
+
+}
+
+input[type=range]{
+
+    padding:0;
+
+}
+
+select[multiple]{
+
+    min-height:180px;
+
+}
+
+/* ==========================================================
+   FLASH MESSAGES
+========================================================== */
+
+.flash-container{
+
+    margin-bottom:20px;
+
+}
+
+.flash{
+
+    padding:14px 18px;
+
+    border-radius:10px;
+
+    margin-bottom:12px;
+
+    font-weight:500;
+
+}
+
+.flash-success{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.flash-error{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+.flash-warning{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.flash-info{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+
+/* ==========================================================
+   PART 2
+   Dashboard • Metrics • Tables • Alerts • Tabs
+========================================================== */
+
+/* ==========================================================
+   METRIC ROW
+========================================================== */
+
+.metric-row{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin:20px 0;
+
+}
+
+.metric{
+
+    flex:1;
+
+    min-width:180px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:22px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.25s;
+
+}
+
+.metric:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.metric-label{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:10px;
+
+    font-weight:500;
+
+}
+
+.metric-value{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+/* ==========================================================
+   ALERTS
+========================================================== */
+
+.alert{
+
+    border-radius:12px;
+
+    padding:18px 20px;
+
+    margin:18px 0;
+
+    border-left:5px solid transparent;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.alert-info{
+
+    background:#eff6ff;
+
+    border-left-color:#3b82f6;
+
+    color:#1d4ed8;
+
+}
+
+.alert-success{
+
+    background:#ecfdf5;
+
+    border-left-color:#10b981;
+
+    color:#047857;
+
+}
+
+.alert-warning{
+
+    background:#fff7ed;
+
+    border-left-color:#f59e0b;
+
+    color:#92400e;
+
+}
+
+.alert-error{
+
+    background:#fef2f2;
+
+    border-left-color:#ef4444;
+
+    color:#b91c1c;
+
+}
+
+/* ==========================================================
+   TABLES
+========================================================== */
+
+.data-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:18px;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    background:white;
+
+}
+
+.data-table thead{
+
+    background:#eff6ff;
+
+}
+
+.data-table th{
+
+    padding:15px;
+
+    text-align:left;
+
+    font-weight:600;
+
+    color:#334155;
+
+    border-bottom:2px solid var(--border);
+
+}
+
+.data-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #edf2f7;
+
+}
+
+.data-table tbody tr{
+
+    transition:.2s;
+
+}
+
+.data-table tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+.data-table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+/* ==========================================================
+   RAW METRICS
+========================================================== */
+
+.raw-metrics{
+
+    background:#0f172a;
+
+    color:#e2e8f0;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    overflow:auto;
+
+    font-family:Consolas, monospace;
+
+    font-size:13px;
+
+}
+
+/* ==========================================================
+   DETAILS / EXPANDER
+========================================================== */
+
+.expander{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:14px 18px;
+
+    margin-bottom:18px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.expander summary{
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    list-style:none;
+
+}
+
+.expander summary::-webkit-details-marker{
+
+    display:none;
+
+}
+
+.expander summary::after{
+
+    content:"▼";
+
+    float:right;
+
+    transition:.25s;
+
+}
+
+.expander[open] summary::after{
+
+    transform:rotate(180deg);
+
+}
+
+/* ==========================================================
+   TABS
+========================================================== */
+
+.tabs{
+
+    margin-top:25px;
+
+}
+
+.tab-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:25px;
+
+    border-bottom:2px solid var(--border);
+
+    padding-bottom:10px;
+
+}
+
+.tab-btn{
+
+    border:none;
+
+    background:#eef2ff;
+
+    color:#334155;
+
+    border-radius:10px;
+
+    padding:12px 22px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.tab-btn:hover{
+
+    background:#dbeafe;
+
+    color:var(--primary);
+
+}
+
+.tab-btn.active{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.tab-panel{
+
+    display:none;
+
+    animation:fadeIn .3s ease;
+
+}
+
+.tab-panel.active{
+
+    display:block;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   DOCUMENT LIST
+========================================================== */
+
+.document-card{
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    background:white;
+
+    transition:.25s;
+
+}
+
+.document-card:hover{
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/* ==========================================================
+   ENTITY BADGES
+========================================================== */
+
+.entity-badge{
+
+    display:inline-block;
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+    padding:8px 14px;
+
+    border-radius:50px;
+
+    margin:5px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   GRAPH
+========================================================== */
+
+#graph-canvas{
+
+    width:100%;
+
+    height:600px;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:white;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+/* ==========================================================
+   REPOSITORY TABLE
+========================================================== */
+
+.repository-table td{
+
+    vertical-align:middle;
+
+}
+
+/* ==========================================================
+   STATUS BADGES
+========================================================== */
+
+.badge{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.badge-success{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.badge-warning{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.badge-danger{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+.badge-info{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+/* ==========================================================
+   UPLOAD AREA
+========================================================== */
+
+.upload-box{
+
+    border:2px dashed #cbd5e1;
+
+    border-radius:14px;
+
+    padding:35px;
+
+    text-align:center;
+
+    background:#f8fafc;
+
+    transition:.25s;
+
+}
+
+.upload-box:hover{
+
+    border-color:var(--primary);
+
+    background:#eff6ff;
+
+}
+
+.upload-box h3{
+
+    margin-bottom:10px;
+
+}
+
+.upload-box p{
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================================================
+   WORKSPACE ACTIONS
+========================================================== */
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+}
+
+.action-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:22px;
+
+    transition:.25s;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.action-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+
+/* ==========================================================
+   PART 3
+   AI Assistant • Asset Intelligence • Compliance
+   Responsive • Utilities • Animations
+========================================================== */
+
+
+/* ==========================================================
+   AI RESPONSE
+========================================================== */
+
+.answer-box{
+
+    background:#ffffff;
+
+    border-left:6px solid var(--primary);
+
+    border-radius:14px;
+
+    padding:24px;
+
+    line-height:1.8;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.answer-box h3{
+
+    margin-bottom:15px;
+
+}
+
+.answer-box p:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+/* ==========================================================
+   EVIDENCE CARDS
+========================================================== */
+
+.evidence-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:20px;
+
+    margin-bottom:18px;
+
+    box-shadow:var(--shadow-sm);
+
+    transition:.25s;
+
+}
+
+.evidence-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.evidence-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.evidence-score{
+
+    background:#eef2ff;
+
+    color:var(--primary);
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-weight:600;
+
+    font-size:13px;
+
+}
+
+
+/* ==========================================================
+   ENTITY TAGS
+========================================================== */
+
+.entity-grid{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.entity{
+
+    background:#eff6ff;
+
+    color:var(--primary);
+
+    padding:10px 15px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   GRAPH
+========================================================== */
+
+#graph-canvas{
+
+    width:100%;
+
+    height:650px;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    background:white;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+
+/* ==========================================================
+   ASSET CARDS
+========================================================== */
+
+.asset-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    border:1px solid var(--border);
+
+    padding:22px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.asset-card h3{
+
+    margin-bottom:12px;
+
+}
+
+.asset-risk{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:var(--danger);
+
+}
+
+.asset-good{
+
+    color:var(--success);
+
+}
+
+
+/* ==========================================================
+   LESSONS
+========================================================== */
+
+.lesson-card{
+
+    background:#fff;
+
+    border-left:5px solid var(--warning);
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+}
+
+.lesson-card h4{
+
+    margin-bottom:8px;
+
+}
+
+
+/* ==========================================================
+   COMPLIANCE
+========================================================== */
+
+.compliance-score{
+
+    text-align:center;
+
+    padding:30px;
+
+    background:white;
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.compliance-score .score{
+
+    font-size:54px;
+
+    font-weight:700;
+
+    color:var(--success);
+
+}
+
+.coverage-item{
+
+    background:#ecfdf5;
+
+    border-left:5px solid var(--success);
+
+    border-radius:10px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+}
+
+.gap-item{
+
+    background:#fff7ed;
+
+    border-left:5px solid var(--warning);
+
+    border-radius:10px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+}
+
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+.search-bar{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:end;
+
+    flex-wrap:wrap;
+
+}
+
+.search-bar input{
+
+    flex:1;
+
+}
+
+
+/* ==========================================================
+   PROGRESS BAR
+========================================================== */
+
+.progress{
+
+    height:12px;
+
+    background:#e5e7eb;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    background:linear-gradient(90deg,#2563eb,#3b82f6);
+
+}
+
+
+/* ==========================================================
+   CODE / PRE
+========================================================== */
+
+pre{
+
+    background:#0f172a;
+
+    color:#f8fafc;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    overflow:auto;
+
+}
+
+
+/* ==========================================================
+   LISTS
+========================================================== */
+
+ul{
+
+    padding-left:20px;
+
+}
+
+li{
+
+    margin-bottom:8px;
+
+}
+
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#94a3b8;
+
+}
+
+
+/* ==========================================================
+   UTILITIES
+========================================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.mt-0{
+
+    margin-top:0;
+
+}
+
+.mt-1{
+
+    margin-top:10px;
+
+}
+
+.mt-2{
+
+    margin-top:20px;
+
+}
+
+.mt-3{
+
+    margin-top:30px;
+
+}
+
+.mb-1{
+
+    margin-bottom:10px;
+
+}
+
+.mb-2{
+
+    margin-bottom:20px;
+
+}
+
+.mb-3{
+
+    margin-bottom:30px;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.w-100{
+
+    width:100%;
+
+}
+
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.loader{
+
+    width:40px;
+
+    height:40px;
+
+    border:4px solid #dbeafe;
+
+    border-top-color:#2563eb;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* ==========================================================
+   FADE
+========================================================== */
+
+.fade-in{
+
+    animation:fadeIn .35s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:1200px){
+
+    .four-col{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    .layout{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        width:100%;
+
+        height:auto;
+
+        position:relative;
+
+    }
+
+    .content{
+
+        padding:20px;
+
+    }
+
+    .two-col,
+    .three-col,
+    .four-col{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .metric-row{
+
+        flex-direction:column;
+
+    }
+
+    .tab-buttons{
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}
+
+@media (max-width:600px){
+
+    .page-header h1{
+
+        font-size:28px;
+
+    }
+
+    .metric-value{
+
+        font-size:24px;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    .search-bar{
+
+        flex-direction:column;
+
+    }
+
+}
+
+/* ===========================
+   DOCUMENT CHECKBOXES
+=========================== */
+
+.document-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:15px;
+}
+
+.document-item{
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:12px 15px;
+    background:#fff;
+}
+
+.document-item label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0;
+    cursor:pointer;
+}
+
+.document-item input[type="checkbox"]{
+    width:auto;
+    margin:0;
+    transform:scale(1.2);
+}
+
+.document-item span{
+    flex:1;
+}
+
+
+/* Evidence Slider */
+
+.evidence-slider{
+    margin-top:20px;
+}
+
+.slider-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.slider-title label{
+    margin:0;
+    font-weight:600;
+}
+
+.slider-title span{
+    color:#2563eb;
+    font-weight:600;
+}
+
+.evidence-slider input[type="range"]{
+    width:100%;
+    margin:0;
+}
